@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nadine Abdel‑Rahman — Linguistics</title>
+  <meta name="description" content="Academic homepage of Nadine Abdel‑Rahman, PhD candidate in Linguistics at UC Santa Cruz. Research in syntax, semantics, and experimental linguistics." />
+  <meta name="color-scheme" content="light dark" />
+  <style>
+    :root{
+      --bg: #fafafa; --text:#1f2937; --muted:#6b7280; --card:#ffffff; --link:#1d4ed8; --border:#e5e7eb; --accent:#1d4ed8;
+    }
+    :root.theme-dark{
+      --bg:#0b1020; --text:#e5e7eb; --muted:#a3a3a3; --card:#0f162e; --link:#93c5fd; --border:#1f2a44; --accent:#93c5fd;
+    }
+    body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif}
+    a{color:var(--link);text-decoration:none}
+    .container{max-width:900px;margin:0 auto;padding:24px}
+    header{text-align:center;padding:20px 0;position:relative}
+    h1{margin:0;font-size:2rem}
+    .role{color:var(--muted);margin-top:.25rem}
+    .profile-pic{margin-top:1rem;width:150px;height:150px;border-radius:50%;object-fit:cover;border:2px solid var(--border)}
+
+    /* Theme toggle */
+    .theme-btn{position:absolute;right:0;top:18px;border:1px solid var(--border);background:var(--card);color:var(--text);padding:.4rem .65rem;border-radius:8px;cursor:pointer;font:inherit}
+    .theme-btn:hover{filter:brightness(1.02)}
+
+    /* Tabs */
+    .tabs{margin-top:1rem;border-bottom:1px solid var(--border);display:flex;justify-content:center;gap:.5rem;flex-wrap:wrap}
+    .tab{appearance:none;background:none;border:0;padding:.6rem .9rem;border-radius:8px 8px 0 0;color:var(--muted);cursor:pointer}
+    .tab[aria-selected="true"]{color:var(--text);font-weight:600;border:1px solid var(--border);border-bottom-color:transparent;background:var(--card)}
+    .panels{background:var(--card);border:1px solid var(--border);border-top:0;border-radius:0 10px 10px 10px;padding:18px;margin-top:-1px}
+    [hidden]{display:none !important}
+
+    h2{font-size:1.25rem;margin:.25rem 0 .75rem}
+    .muted{color:var(--muted)}
+    footer{text-align:center;margin-top:2rem;padding-top:1rem;border-top:1px solid var(--border);font-size:.9rem;color:var(--muted)}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Nadine Abdel‑Rahman</h1>
+      <div class="role">PhD Candidate in Linguistics · University of California, Santa Cruz</div>
+      <img src="profile.jpg" alt="Portrait of Nadine Abdel‑Rahman" class="profile-pic" />
+      <button class="theme-btn" id="themeToggle" aria-label="Toggle color theme">🌙 Dark</button>
+
+      <div class="tabs" role="tablist" aria-label="Site sections">
+        <button class="tab" role="tab" aria-selected="true" aria-controls="panel-about" id="tab-about">About</button>
+        <button class="tab" role="tab" aria-selected="false" aria-controls="panel-research" id="tab-research">Research</button>
+        <button class="tab" role="tab" aria-selected="false" aria-controls="panel-publications" id="tab-publications">Publications</button>
+        <button class="tab" role="tab" aria-selected="false" aria-controls="panel-teaching" id="tab-teaching">Teaching</button>
+        <button class="tab" role="tab" aria-selected="false" aria-controls="panel-talks" id="tab-talks">Talks</button>
+        <button class="tab" role="tab" aria-selected="false" aria-controls="panel-cv" id="tab-cv">CV</button>
+        <button class="tab" role="tab" aria-selected="false" aria-controls="panel-contact" id="tab-contact">Contact</button>
+      </div>
+    </header>
+
+    <div class="panels">
+      <section id="panel-about" role="tabpanel" aria-labelledby="tab-about">
+        <h2>About</h2>
+        <p>I am a PhD candidate in Linguistics at UC Santa Cruz. My research focuses on the syntax–semantics interface, especially in Palestinian Arabic, combining theoretical and experimental methods to explore definiteness and superlative interpretation.</p>
+      </section>
+
+      <section id="panel-research" role="tabpanel" aria-labelledby="tab-research" hidden>
+        <h2>Research</h2>
+        <ul>
+          <li><strong>Superlatives & definiteness:</strong> Bare vs. polydefinite forms under a split‑DP analysis; forced‑choice experiments on absolute vs. relative readings.</li>
+          <li><strong>Experimental semantics:</strong> Context design, counterbalancing, preregistration, reproducible workflows.</li>
+        </ul>
+      </section>
+
+      <section id="panel-publications" role="tabpanel" aria-labelledby="tab-publications" hidden>
+        <h2>Publications & Manuscripts</h2>
+        <ol reversed>
+          <li><strong>Polydefinite vs. bare superlatives in Palestinian Arabic: definiteness and interpretation.</strong> Manuscript, under revision (2025).</li>
+          <li><strong>On the semantics of superlatives in Arabic dialects.</strong> Proceedings (to appear, 2024).</li>
+        </ol>
+      </section>
+
+      <section id="panel-teaching" role="tabpanel" aria-labelledby="tab-teaching" hidden>
+        <h2>Teaching</h2>
+        <ul>
+          <li>Fall 2025 — Syntax I (TA)</li>
+          <li>Spring 2025 — Semantics II (TA)</li>
+        </ul>
+      </section>
+
+      <section id="panel-talks" role="tabpanel" aria-labelledby="tab-talks" hidden>
+        <h2>Talks & Posters</h2>
+        <ul>
+          <li>Superlative readings in Palestinian Arabic — UCSC Syntax/Semantics Lab (Poster, 2025)</li>
+          <li>Definiteness effects across Arabic dialects — Workshop on Semitic Syntax (Talk, 2024)</li>
+        </ul>
+      </section>
+
+      <section id="panel-cv" role="tabpanel" aria-labelledby="tab-cv" hidden>
+        <h2>Curriculum Vitae</h2>
+        <p class="muted">Place a <code>cv.pdf</code> file at your site root to enable this link.</p>
+        <p><a href="/cv.pdf" download>Download CV (PDF)</a></p>
+      </section>
+
+      <section id="panel-contact" role="tabpanel" aria-labelledby="tab-contact" hidden>
+        <h2>Contact</h2>
+        <p>Email: <a href="mailto:naabdelr@ucsc.edu">naabdelr@ucsc.edu</a></p>
+        <p class="muted">Google Scholar · ORCID · GitHub</p>
+      </section>
+    </div>
+
+    <footer>
+      © <span id="year"></span> Nadine Abdel‑Rahman
+    </footer>
+  </div>
+
+  <script>
+    // Theme init & toggle
+    (function(){
+      const stored = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if(stored === 'dark' || (!stored && prefersDark)){
+        document.documentElement.classList.add('theme-dark');
+      }
+      const btn = document.getElementById('themeToggle');
+      const setLabel = () => btn && (btn.textContent = document.documentElement.classList.contains('theme-dark') ? '☀️ Light' : '🌙 Dark');
+      setLabel();
+      btn && btn.addEventListener('click', () => {
+        document.documentElement.classList.toggle('theme-dark');
+        localStorage.setItem('theme', document.documentElement.classList.contains('theme-dark') ? 'dark' : 'light');
+        setLabel();
+      });
+    })();
+
+    // Tabs logic (instant switch, no fade)
+    const tabs = Array.from(document.querySelectorAll('[role="tab"]'));
+    const panels = Array.from(document.querySelectorAll('[role="tabpanel"]'));
+
+    function activate(id, push = false){
+      tabs.forEach(t => t.setAttribute('aria-selected', String(t.id === 'tab-'+id)));
+      panels.forEach(p => p.hidden = p.id !== 'panel-'+id);
+      const newHash = '#'+id;
+      if(push){ history.pushState({tab:id}, '', newHash); }
+      else { history.replaceState({tab:id}, '', newHash); }
+      document.getElementById('tab-'+id).focus({preventScroll:true});
+    }
+
+    tabs.forEach(tab => tab.addEventListener('click', () => activate(tab.id.replace('tab-',''), true)));
+
+    const initial = (location.hash || '#about').slice(1);
+    if(['about','research','publications','teaching','talks','cv','contact'].includes(initial)) activate(initial);
+    else activate('about');
+
+    window.addEventListener('popstate', () => {
+      const tab = (location.hash || '#about').slice(1);
+      if(tab) activate(tab);
+    });
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
