@@ -28,11 +28,25 @@ h1, h2, h3 {
 }
 .profile-pic {
   margin-top: 1rem;
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
+  width: 280px;  /* increased from 220px */
+  height: 280px; /* increased from 220px */
+  border-radius: 50%; /* use 50% for perfect circle, not 70% */
   object-fit: cover;
-  border: 2px solid var(--border);
+  border: 3px solid var(--border);
+  transition: opacity 180ms ease-in-out;
+  opacity: 1;
+}
+.tab-photo{
+  margin: 1rem auto 0;
+  width: 100%;
+  max-width: 700px;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  display: block;
+  opacity: 1;
+  transition: opacity 180ms ease-in-out;
 }
 
     /* Theme toggle */
@@ -57,6 +71,7 @@ h1, h2, h3 {
       <h1>Nadine Abdel‑Rahman</h1>
       <div class="role">PhD Student in Linguistics · University of California, Santa Cruz</div>
       <img src="profilePic.jpg" alt="Nadine Abdel-Rahman" class="profile-pic" />
+	  <img id="tab-photo" alt="" class="tab-photo" hidden />
       <button class="theme-btn" id="themeToggle" aria-label="Toggle color theme">🌙 Dark</button>
       <div class="tabs" role="tablist" aria-label="Site sections">
         <button class="tab" role="tab" aria-selected="true" aria-controls="panel-about" id="tab-about">About</button>
@@ -161,49 +176,123 @@ h1, h2, h3 {
     </footer>
   </div>
 
-  <script>
-    // Theme init & toggle
-    (function(){
-      const stored = localStorage.getItem('theme');
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      if(stored === 'dark' || (!stored && prefersDark)){
-        document.documentElement.classList.add('theme-dark');
-      }
-      const btn = document.getElementById('themeToggle');
-      const setLabel = () => btn && (btn.textContent = document.documentElement.classList.contains('theme-dark') ? '☀️ Light' : '🌙 Dark');
-      setLabel();
-      btn && btn.addEventListener('click', () => {
-        document.documentElement.classList.toggle('theme-dark');
-        localStorage.setItem('theme', document.documentElement.classList.contains('theme-dark') ? 'dark' : 'light');
-        setLabel();
-      });
-    })();
+<script>
+  
+  const tabPhotoSizes = {
+  research: { maxWidth: '700px', height: '250px' },
+  publications: {  maxWidth: '400px', height: '300px'  }, // square
+  teaching: { maxWidth: '700px', height: '200px' },
+  talks: {  maxWidth: '400px', height: '300px' },
+  cv: { maxWidth: '700px', height: '200px' }, // rec
+  contact: { maxWidth: '400px', height: '300px' }
+};
 
-    // Tabs logic (instant switch, no fade)
-    const tabs = Array.from(document.querySelectorAll('[role="tab"]'));
-    const panels = Array.from(document.querySelectorAll('[role="tabpanel"]'));
-
-    function activate(id, push = false){
-      tabs.forEach(t => t.setAttribute('aria-selected', String(t.id === 'tab-'+id)));
-      panels.forEach(p => p.hidden = p.id !== 'panel-'+id);
-      const newHash = '#'+id;
-      if(push){ history.pushState({tab:id}, '', newHash); }
-      else { history.replaceState({tab:id}, '', newHash); }
-      document.getElementById('tab-'+id).focus({preventScroll:true});
+  
+  // Theme init & toggle
+  (function(){
+    const stored = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if(stored === 'dark' || (!stored && prefersDark)){
+      document.documentElement.classList.add('theme-dark');
     }
-
-    tabs.forEach(tab => tab.addEventListener('click', () => activate(tab.id.replace('tab-',''), true)));
-
-    const initial = (location.hash || '#about').slice(1);
-    if(['about','research','publications','teaching','talks','cv','contact'].includes(initial)) activate(initial);
-    else activate('about');
-
-    window.addEventListener('popstate', () => {
-      const tab = (location.hash || '#about').slice(1);
-      if(tab) activate(tab);
+    const btn = document.getElementById('themeToggle');
+    const setLabel = () => btn && (btn.textContent = document.documentElement.classList.contains('theme-dark') ? '☀️ Light' : '🌙 Dark');
+    setLabel();
+    btn && btn.addEventListener('click', () => {
+      document.documentElement.classList.toggle('theme-dark');
+      localStorage.setItem('theme', document.documentElement.classList.contains('theme-dark') ? 'dark' : 'light');
+      setLabel();
     });
+  })();
 
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
+  // Tab header images
+  const tabImages = {
+    research: "images/research.jpg",
+    publications: "images/publications.jpg",
+    teaching: "images/teaching.jpg",
+    talks: "images/talks.jpg",
+    cv: "images/cv.jpg",
+    contact: "images/contact.jpg"
+  };
+
+  const tabPhoto = document.getElementById("tab-photo");
+  const profilePic = document.querySelector('.profile-pic');
+  const tabs = Array.from(document.querySelectorAll('[role="tab"]'));
+  const panels = Array.from(document.querySelectorAll('[role="tabpanel"]'));
+  
+function activate(id, push = false){
+  tabs.forEach(t => t.setAttribute('aria-selected', String(t.id === 'tab-'+id)));
+  panels.forEach(p => p.hidden = p.id !== 'panel-'+id);
+  
+  // Update header images per tab
+  if(id === 'about'){
+    if(profilePic) {
+      profilePic.hidden = false;
+      profilePic.style.opacity = '1';
+    }
+    if(tabPhoto) {
+      tabPhoto.style.opacity = '0';
+      setTimeout(() => { tabPhoto.hidden = true; }, 180);
+    }
+  } else {
+    if(profilePic) {
+      profilePic.style.opacity = '0';
+      setTimeout(() => { profilePic.hidden = true; }, 180);
+    }
+    
+    const nextSrc = tabImages[id];
+    if(tabPhoto && nextSrc){
+      // Apply custom size for this tab
+      const sizes = tabPhotoSizes[id];
+      if(sizes) {
+        tabPhoto.style.maxWidth = sizes.maxWidth;
+        tabPhoto.style.height = sizes.height;
+      }
+      
+      tabPhoto.hidden = false;
+      tabPhoto.style.opacity = '0';
+      setTimeout(() => {
+        tabPhoto.src = nextSrc;
+        tabPhoto.alt = id + " header image";
+        tabPhoto.onload = () => { tabPhoto.style.opacity = '1'; };
+        setTimeout(() => { tabPhoto.style.opacity = '1'; }, 50);
+      }, 120);
+    } else if(tabPhoto) {
+      tabPhoto.hidden = true;
+    }
+  }
+
+  const newHash = '#'+id;
+  if(push){ history.pushState({tab:id}, '', newHash); }
+  else { history.replaceState({tab:id}, '', newHash); }
+  const tabElement = document.getElementById('tab-'+id);
+  if(tabElement) tabElement.focus({preventScroll:true});
+}
+
+  // Add click listeners to tabs
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const tabId = tab.id.replace('tab-','');
+      activate(tabId, true);
+    });
+  });
+
+  // Initial load
+  const initial = (location.hash || '#about').slice(1);
+  if(['about','research','publications','teaching','talks','cv','contact'].includes(initial)) {
+    activate(initial);
+  } else {
+    activate('about');
+  }
+
+  // Handle browser back/forward
+  window.addEventListener('popstate', () => {
+    const tab = (location.hash || '#about').slice(1);
+    if(tab) activate(tab);
+  });
+
+  // Set year in footer
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
 </body>
 </html>
